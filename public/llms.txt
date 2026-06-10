@@ -1,0 +1,12 @@
+# The Vault
+
+> A free quiz that matches you with discounts, free tiers, and perks you
+> actually qualify for — student deals, 21+ offers, community discounts
+> (military, teacher, nurse, first responder, government), and
+> free-for-everyone programs — ranked by estimated dollar value.
+
+Answer five questions (age bracket, student status, communities, US state,
+interests). Eligibility runs entirely client-side. Every offer links to its
+official source page and shows the date it was last verified. Sports-betting
+promos appear only for 21+ users in states with legal online betting, carry
+a negative-expected-value warning, and count $0 toward the savings total.
