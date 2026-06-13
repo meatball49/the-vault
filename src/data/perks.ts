@@ -14,7 +14,7 @@ export const PERKS: Perk[] = [
   {
     id: "spotify-premium-student",
     name: "Spotify Premium Student",
-    blurb: "College students get Spotify Premium plus Hulu (With Ads) for $6.99/mo — about half the $12.99 Individual price, with a 1-month free trial for new Premium users.",
+    blurb: "College students get Spotify Premium plus Hulu (With Ads) for $6.99/mo — versus roughly $25/mo for Premium ($12.99) and Hulu (~$12) bought separately. Includes a 1-month free trial for new Premium users.",
     value: 216,
     valueType: "perYear",
     category: "student",

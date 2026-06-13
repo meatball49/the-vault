@@ -75,6 +75,19 @@ describe('Quiz', () => {
     )
   })
 
+  it('double-tapping a single-select chip never skips a step', async () => {
+    const user = userEvent.setup()
+    render(<Quiz onComplete={vi.fn()} />)
+
+    // Two fast taps on the same age chip must not jump past the student step.
+    const under18 = screen.getByRole('button', { name: 'Under 18' })
+    await user.dblClick(under18)
+
+    expect(await screen.findByText('Are you a student?')).toBeInTheDocument()
+    // The community step (which would be next if we'd skipped) is not shown.
+    expect(screen.queryByText('Any of these communities?')).not.toBeInTheDocument()
+  })
+
   it('toggles multi-select chips off on second tap', async () => {
     const user = userEvent.setup()
     render(<Quiz onComplete={vi.fn()} />)

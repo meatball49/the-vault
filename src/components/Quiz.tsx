@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { US_STATES } from '../data/states'
 import { useReducedMotion } from '../hooks/useReducedMotion'
 import type { AgeBracket, Community, Interest, Profile, StudentStatus } from '../lib/types'
@@ -69,16 +69,31 @@ export function Quiz({ onComplete }: QuizProps) {
 
   const step = STEPS[stepIndex] ?? 'age'
 
-  const advance = () => {
-    if (stepIndex < STEPS.length - 1) {
-      setStepIndex(stepIndex + 1)
+  // One pending auto-advance at a time. A double-tap (or tapping a second
+  // chip within the 180ms window) clears the prior timer and reschedules,
+  // so the quiz only ever moves forward by a single step.
+  const advanceTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const clearAdvance = () => {
+    if (advanceTimer.current !== null) {
+      clearTimeout(advanceTimer.current)
+      advanceTimer.current = null
     }
   }
+  useEffect(() => clearAdvance, [])
+
+  const advance = () => setStepIndex((i) => Math.min(i + 1, STEPS.length - 1))
 
   // Brief pause after a single-select tap so the selection registers visually.
   const advanceSoon = () => {
-    if (reducedMotion) advance()
-    else setTimeout(advance, 180)
+    clearAdvance()
+    if (reducedMotion) {
+      advance()
+    } else {
+      advanceTimer.current = setTimeout(() => {
+        advanceTimer.current = null
+        advance()
+      }, 180)
+    }
   }
 
   const finish = () => {
@@ -96,7 +111,10 @@ export function Quiz({ onComplete }: QuizProps) {
         {stepIndex > 0 ? (
           <button
             type="button"
-            onClick={() => setStepIndex(stepIndex - 1)}
+            onClick={() => {
+              clearAdvance()
+              setStepIndex(stepIndex - 1)
+            }}
             className="text-sm font-medium text-muted hover:text-cream"
           >
             ← Back
