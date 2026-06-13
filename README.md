@@ -11,6 +11,12 @@ do they finish the quiz, click through to claim, and come back?
 [CONTENT.md](CONTENT.md) is the playbook for keeping the offers honest.
 [DECISIONS.md](DECISIONS.md) logs the non-obvious build choices.
 
+**Where this is going** (research-backed strategy docs):
+[docs/ROADMAP.md](docs/ROADMAP.md) — the "discount radar" vision, competitive
+gap, campus-wedge plan, and monetization sequence.
+[docs/ARCHITECTURE-NOTIFICATIONS.md](docs/ARCHITECTURE-NOTIFICATIONS.md) — the
+Phase 1 PWA-push + backend design.
+
 ## Stack
 
 Vite + React 19 + TypeScript (strict) + Tailwind CSS v4. PostHog for product
